@@ -1,0 +1,48 @@
+﻿@model LibrariDenisKoleci.ViewModels.SignupViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@if (Request.IsAuthenticated)
+{
+    <h2>ADD A USER</h2>
+
+    using (Html.BeginForm("Save", "Users"))
+    {
+        @Html.ValidationSummary(true, "Please fix the following errors.")
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.FullName)
+            @Html.TextBoxFor(m => m.User.FullName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.FullName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.Username);
+            @Html.TextBoxFor(m => m.User.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.Username)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.Password)
+            @Html.PasswordFor(m => m.User.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.Password)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.UserRoleID)
+            @Html.DropDownListFor(m => m.User.UserRoleID, new SelectList(Model.UserRoles, "Id", "Name"), "Select role of user", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.UserRoleID)
+        </div>
+
+
+        @Html.HiddenFor(m => m.User.Id)
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+}
+else
+{ @Html.Partial("Guest")}

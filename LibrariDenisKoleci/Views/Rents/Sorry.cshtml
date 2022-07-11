@@ -1,0 +1,19 @@
+﻿@model LibrariDenisKoleci.DbModel.Book
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Sorry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Request.IsAuthenticated)
+    {
+        <h2>Sorry @Model.Title  is not available for renting. Wait until it is returned</h2>
+        
+            <h2>Go back to:</h2>
+            <p><a class="btn btn-default" href="https://localhost:44365/Rents/ListOfBookRents">List of Rents &raquo;</a></p>
+        
+
+    }
+}
+
+

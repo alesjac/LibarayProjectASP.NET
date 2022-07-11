@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNet.Identity
+@{ ViewBag.Title = "Home Page";
+
+
+
+                if (Request.IsAuthenticated)
+                {
+                    <div class="jumbotron">
+                        <h2>WELCOME TO LIBRARY dashboard @User.Identity.GetUserName()</h2>
+                        <p class="lead">Click any button to continue:</p>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>BOOK SECTION</h2>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Books/Index">View all books (+edit/+delete) &raquo;</a></p>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Books/New">Add new book &raquo;</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>CATEGORY SECTION</h2>
+
+                            <p><a class="btn btn-default" href="https://localhost:44365/Categories/Index">View all categories (+edit/+delete) &raquo;</a></p>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Categories/New">Add new category &raquo;</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>READER PART</h2>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Readers/Index">View all readers (+edit/+delete) &raquo;</a></p>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Readers/New">Add new reader &raquo;</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>RENTAL PART</h2>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Rents/ListOfBookRents">View all rents (+edit/+delete) &raquo;</a></p>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Rents/NewBookRentForm">Add new rent &raquo;</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>USERS PART</h2>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Users/Index">View all users &raquo;</a></p>
+                            <p><a class="btn btn-default" href="https://localhost:44365/Users/Signup">Add new user &raquo;</a></p>
+                        </div>
+                    </div>
+
+
+
+                }
+                else
+                {
+                    @Html.Partial("Guest")
+                }
+}
+
+
+
