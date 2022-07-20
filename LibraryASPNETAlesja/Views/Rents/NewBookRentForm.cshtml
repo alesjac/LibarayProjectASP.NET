@@ -1,0 +1,65 @@
+﻿@model LibraryASPNETAlesja.ViewModels.BookRentViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "New Book Rent Form";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.IsAuthenticated)
+    {
+        <h2>Add a Rental</h2>
+
+        using (Html.BeginForm("Save", "Rents"))
+        {
+            @Html.ValidationSummary(true, "Please enter the right values.")
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Rent.BookID)
+                @Html.DropDownListFor(m => m.Rent.BookID, new SelectList(Model.Books, "Id", "Title"), "Select a Book", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Rent.BookID)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Rent.ReaderID)
+                @Html.DropDownListFor(m => m.Rent.ReaderID, new SelectList(Model.Readers, "Id", "FullName"), "Select a Reader", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Rent.ReaderID)
+                <br /><br />
+                <p>
+                    Add new reader from here if the user is not in the system:
+                    @Html.ActionLink("Add new reader", "New", "Readers", null, new { @class = "btn btn-primary" })
+                </p>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Rent.Status)
+                @Html.TextBoxFor(m => m.Rent.Status, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Rent.Status)
+                <br /><br />
+
+            </div>
+
+
+
+            @Html.HiddenFor(m => m.Rent.Id)
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">Save</button>
+
+            if (ViewBag.Message != null)
+            {
+                <script type="text/javascript">
+                    window.onload = function () {
+                        alert("@ViewBag.Message");
+                    };
+                </script>
+
+            }
+
+        }
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+    }
+    else
+    {
+        @Html.Partial("Guest")
+    }
+}
